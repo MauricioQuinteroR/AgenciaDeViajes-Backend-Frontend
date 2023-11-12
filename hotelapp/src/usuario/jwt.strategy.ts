@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { UsuarioService } from './usuario.service';
+import { Usuario } from './entities/usuario.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -13,9 +14,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    // Aquí puedes añadir más lógica para validar el token y extraer información del usuario
-    // Por ejemplo, podrías buscar el usuario en la base de datos por su ID
-    return { userId: payload.sub, username: payload.username };
+  async validate(payload: any): Promise<Usuario> {
+    const { email } = payload;
+    return await this.usuarioService.findOneByEmail(email);
   }
 }

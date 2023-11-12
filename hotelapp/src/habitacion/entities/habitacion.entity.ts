@@ -1,13 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @ObjectType()
-@Schema()
+@Schema({ 
+  timestamps: true,
+  collection: 'habitacion' 
+})
 export class Habitacion {
-  @Field(() => Int)
-  @Prop()
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field()
   @Prop({ required: true })
@@ -25,8 +27,28 @@ export class Habitacion {
   @Prop({ required: true })
   estado: string; // Por ejemplo: 'disponible', 'ocupada', 'en mantenimiento'
 
-  // Considera añadir otros campos aquí según las necesidades de tu aplicación, como número de habitación, capacidad, etc.
+  @Field(() => Boolean)
+  @Prop({ default: true })
+  active: boolean;
+
+  @Field()
+  @Prop()
+  createdAt: Date;
+
+  @Field()
+  @Prop()
+  updatedAt: Date;
 }
 
 export type HabitacionDocument = Habitacion & Document;
 export const HabitacionSchema = SchemaFactory.createForClass(Habitacion);
+
+// Agregar un campo virtual para id que retorne _id - para manejar la conversión de _id (un objeto en MongoDB) a id (una string en GraphQL).
+HabitacionSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Asegurarse de que los campos virtuales sean incluidos en las respuestas
+HabitacionSchema.set('toJSON', {
+  virtuals: true,
+});

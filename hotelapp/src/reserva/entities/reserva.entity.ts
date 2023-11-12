@@ -1,13 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @ObjectType()
-@Schema()
+@Schema({ 
+  timestamps: true,
+  collection: 'reserva' 
+})
 export class Reserva {
-  @Field(() => Int)
-  @Prop()
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => Date)
   @Prop({ required: true })
@@ -29,8 +31,28 @@ export class Reserva {
   @Prop({ required: true, ref: 'Huesped' })
   huespedId: string; // Referencia al ID del Huésped que realiza la reserva
 
-  // Puedes agregar más campos aquí según sean necesarios, como el estado de la reserva (confirmada, cancelada, etc.)
+  @Field(() => Boolean)
+  @Prop({ default: true })
+  active: boolean;
+
+  @Field()
+  @Prop()
+  createdAt: Date;
+
+  @Field()
+  @Prop()
+  updatedAt: Date;
 }
 
 export type ReservaDocument = Reserva & Document;
 export const ReservaSchema = SchemaFactory.createForClass(Reserva);
+
+// Agregar un campo virtual para id que retorne _id - para manejar la conversión de _id (un objeto en MongoDB) a id (una string en GraphQL).
+ReservaSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Asegurarse de que los campos virtuales sean incluidos en las respuestas
+ReservaSchema.set('toJSON', {
+  virtuals: true,
+});

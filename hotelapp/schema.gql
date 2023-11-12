@@ -3,27 +3,13 @@
 # ------------------------------------------------------
 
 type Hotel {
-  id: Int!
+  id: ID!
   nombre: String!
   ubicacion: String
   descripcion: String
-}
-
-type Habitacion {
-  id: Int!
-  tipo: String!
-  costoBase: Int!
-  impuestos: Int!
-  estado: String!
-}
-
-type Reserva {
-  id: Int!
-  fechaEntrada: DateTime!
-  fechaSalida: DateTime!
-  cantidadPersonas: Int!
-  habitacionId: String!
-  huespedId: String!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """
@@ -31,8 +17,31 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Habitacion {
+  id: ID!
+  tipo: String!
+  costoBase: Int!
+  impuestos: Int!
+  estado: String!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Reserva {
+  id: ID!
+  fechaEntrada: DateTime!
+  fechaSalida: DateTime!
+  cantidadPersonas: Int!
+  habitacionId: String!
+  huespedId: String!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Huesped {
-  id: Int!
+  id: ID!
   nombres: String!
   apellidos: String!
   tipoDocumento: Int!
@@ -41,32 +50,45 @@ type Huesped {
   telefono: String!
   genero: String
   fechaNacimiento: DateTime
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Contacto {
-  id: Int!
+  id: ID!
   nombreCompleto: String!
   telefonoContacto: String!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Usuario {
-  id: Int!
+  id: ID!
   email: String!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
-  hotel(id: Int!): Hotel!
+  hotels: [Hotel!]!
+  hotelById(id: String!): Hotel
   habitacion(id: Int!): Habitacion!
   reserva(id: Int!): Reserva!
   huesped(id: Int!): Huesped!
   contacto(id: Int!): Contacto!
-  usuario(id: Int!): Usuario!
+  users: [Usuario!]!
+  userById(id: String!): Usuario
+  userByEmail(email: String!): Usuario
 }
 
 type Mutation {
-  createHotel(createHotelInput: CreateHotelInput!): Hotel!
-  updateHotel(updateHotelInput: UpdateHotelInput!): Hotel!
-  removeHotel(id: Int!): Hotel!
+  createHotel(createHotelDto: CreateHotelInput!): Hotel!
+  updateHotel(id: String!, updateHotelDto: UpdateHotelInput!): Hotel!
+  deleteHotel(id: String!): Boolean!
+  updateHotelActive(id: String!, active: Boolean!): Hotel!
   createHabitacion(createHabitacionInput: CreateHabitacionInput!): Habitacion!
   updateHabitacion(updateHabitacionInput: UpdateHabitacionInput!): Habitacion!
   removeHabitacion(id: Int!): Habitacion!
@@ -79,19 +101,24 @@ type Mutation {
   createContacto(createContactoInput: CreateContactoInput!): Contacto!
   updateContacto(updateContactoInput: UpdateContactoInput!): Contacto!
   removeContacto(id: Int!): Contacto!
-  createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
-  updateUsuario(updateUsuarioInput: UpdateUsuarioInput!): Usuario!
-  removeUsuario(id: Int!): Usuario!
+  registerUser(createUserDto: CreateUserDto!): Usuario!
+  loginUser(loginUserDto: LoginUserDto!): String!
+  updateEmail(userId: String!, newEmail: String!): Usuario!
+  updatePassword(userId: String!, newPassword: String!): Usuario!
+  deleteUser(id: String!): Boolean!
+  updateUserActive(id: String!, active: Boolean!): Usuario!
 }
 
 input CreateHotelInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  nombre: String!
+  ubicacion: String
+  descripcion: String
 }
 
 input UpdateHotelInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  nombre: String
+  ubicacion: String
+  descripcion: String
   id: Int!
 }
 
@@ -139,13 +166,12 @@ input UpdateContactoInput {
   id: Int!
 }
 
-input CreateUsuarioInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+input CreateUserDto {
+  email: String!
+  password: String!
 }
 
-input UpdateUsuarioInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+input LoginUserDto {
+  email: String!
+  password: String!
 }

@@ -1,13 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @ObjectType()
-@Schema()
+@Schema({ 
+  timestamps: true,
+  collection: 'hotel'
+})
 export class Hotel {
-  @Field(() => Int)
-  @Prop()
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field()
   @Prop({ required: true })
@@ -21,9 +23,28 @@ export class Hotel {
   @Prop()
   descripcion: string;
 
-  // Considera agregar otros campos aquí según las necesidades de tu aplicación, 
-  // como un campo para el estado del hotel (activo/inactivo), etc.
+  @Field(() => Boolean)
+  @Prop({ default: true })
+  active: boolean;
+
+  @Field()
+  @Prop()
+  createdAt: Date;
+
+  @Field()
+  @Prop()
+  updatedAt: Date;
 }
 
 export type HotelDocument = Hotel & Document;
 export const HotelSchema = SchemaFactory.createForClass(Hotel);
+
+// Agregar un campo virtual para id que retorne _id - para manejar la conversión de _id (un objeto en MongoDB) a id (una string en GraphQL).
+HotelSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Asegurarse de que los campos virtuales sean incluidos en las respuestas
+HotelSchema.set('toJSON', {
+  virtuals: true,
+});

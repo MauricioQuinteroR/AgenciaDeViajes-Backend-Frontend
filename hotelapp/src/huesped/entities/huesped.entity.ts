@@ -1,13 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @ObjectType()
-@Schema()
+@Schema({ 
+  timestamps: true,
+  collection: 'hesped' 
+})
 export class Huesped {
-  @Field(() => Int)
-  @Prop()
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field()
   @Prop({ required: true })
@@ -41,8 +43,28 @@ export class Huesped {
   @Prop()
   fechaNacimiento: Date; // Opcional
 
-  // Puedes agregar más campos aquí según sean necesarios.
+  @Field(() => Boolean)
+  @Prop({ default: true })
+  active: boolean;
+
+  @Field()
+  @Prop()
+  createdAt: Date;
+
+  @Field()
+  @Prop()
+  updatedAt: Date;
 }
 
 export type HuespedDocument = Huesped & Document;
 export const HuespedSchema = SchemaFactory.createForClass(Huesped);
+
+// Agregar un campo virtual para id que retorne _id - para manejar la conversión de _id (un objeto en MongoDB) a id (una string en GraphQL).
+HuespedSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Asegurarse de que los campos virtuales sean incluidos en las respuestas
+HuespedSchema.set('toJSON', {
+  virtuals: true,
+});

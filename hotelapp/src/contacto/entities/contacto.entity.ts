@@ -1,13 +1,15 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @ObjectType()
-@Schema()
+@Schema({ 
+  timestamps: true,
+  collection: 'contacto' 
+})
 export class Contacto {
-  @Field(() => Int)
-  @Prop()
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field()
   @Prop({ required: true })
@@ -17,13 +19,28 @@ export class Contacto {
   @Prop({ required: true })
   telefonoContacto: string;
 
-  // Si necesitas almacenar la relación con el huésped (que tendría este contacto de emergencia), puedes agregar un campo aquí.
-  // @Field(type => Huésped)
-  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Huésped' })
-  // huesped: Huésped;
+  @Field(() => Boolean)
+  @Prop({ default: true })
+  active: boolean;
 
-  // Considera añadir otros campos aquí según las necesidades de tu aplicación.
+  @Field(() => Date)
+  @Prop()
+  createdAt: Date;
+
+  @Field(() => Date)
+  @Prop()
+  updatedAt: Date;
 }
 
 export type ContactoDocument = Contacto & Document;
 export const ContactoSchema = SchemaFactory.createForClass(Contacto);
+
+// Campo virtual para id
+ContactoSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Incluir campos virtuales en las respuestas
+ContactoSchema.set('toJSON', {
+  virtuals: true,
+});
