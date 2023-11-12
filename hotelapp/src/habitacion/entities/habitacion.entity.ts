@@ -19,9 +19,9 @@ export class Habitacion {
   @Prop({ required: true })
   costoBase: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @Prop()
-  impuestos: number;
+  impuestos?: number;
 
   @Field()
   @Prop({ required: true })

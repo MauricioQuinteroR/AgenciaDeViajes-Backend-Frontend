@@ -3,10 +3,16 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateHuespedInput {
   @Field()
-  nombre: string;
+  nombres: string;
 
   @Field()
-  apellido: string;
+  apellidos: string;
+
+  @Field()
+  tipoDocumento: string;
+
+  @Field()
+  numeroDocumento: string;
 
   @Field({ nullable: true })
   email?: string;
@@ -14,7 +20,9 @@ export class CreateHuespedInput {
   @Field({ nullable: true })
   telefono?: string;
 
-  @Field()
-  documentoIdentidad: string;
+  @Field({ nullable: true })
+  genero?: string;
 
+  @Field({ nullable: true })
+  fechaNacimiento?: Date;
 }

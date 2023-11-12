@@ -21,7 +21,7 @@ type Habitacion {
   id: ID!
   tipo: String!
   costoBase: Int!
-  impuestos: Int!
+  impuestos: Int
   estado: String!
   active: Boolean!
   createdAt: DateTime!
@@ -44,10 +44,10 @@ type Huesped {
   id: ID!
   nombres: String!
   apellidos: String!
-  tipoDocumento: Int!
+  tipoDocumento: String!
   numeroDocumento: String!
-  email: String!
-  telefono: String!
+  email: String
+  telefono: String
   genero: String
   fechaNacimiento: DateTime
   active: Boolean!
@@ -128,57 +128,57 @@ input UpdateHotelInput {
 }
 
 input CreateHabitacionInput {
-  numero: String!
   tipo: String!
-  descripcion: String
-  precioBase: Float!
-  impuesto: Float
-  hotelId: String!
+  costoBase: Int!
+  impuestos: Int
+  estado: String!
+  hotelId: String
 }
 
 input UpdateHabitacionInput {
-  numero: String
   tipo: String
-  descripcion: String
-  precioBase: Float
-  impuesto: Float
+  costoBase: Int
+  impuestos: Int
+  estado: String
   hotelId: String
 }
 
 input CreateReservaInput {
-  hotelId: String!
   habitacionId: String!
   huespedId: String!
-  fechaInicio: DateTime!
-  fechaFin: DateTime!
-  numeroPersonas: Int!
-  comentarios: String
+  fechaEntrada: DateTime!
+  fechaSalida: DateTime!
+  cantidadPersonas: Int!
 }
 
 input UpdateReservaInput {
-  hotelId: String
   habitacionId: String
   huespedId: String
-  fechaInicio: DateTime
-  fechaFin: DateTime
-  numeroPersonas: Int
-  comentarios: String
+  fechaEntrada: DateTime
+  fechaSalida: DateTime
+  cantidadPersonas: Int
 }
 
 input CreateHuespedInput {
-  nombre: String!
-  apellido: String!
+  nombres: String!
+  apellidos: String!
+  tipoDocumento: String!
+  numeroDocumento: String!
   email: String
   telefono: String
-  documentoIdentidad: String!
+  genero: String
+  fechaNacimiento: DateTime
 }
 
 input UpdateHuespedInput {
-  nombre: String
-  apellido: String
+  nombres: String
+  apellidos: String
+  tipoDocumento: String
+  numeroDocumento: String
   email: String
   telefono: String
-  documentoIdentidad: String
+  genero: String
+  fechaNacimiento: DateTime
 }
 
 input CreateContactoInput {

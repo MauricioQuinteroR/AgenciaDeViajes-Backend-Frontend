@@ -19,29 +19,29 @@ export class Huesped {
   @Prop({ required: true })
   apellidos: string;
 
-  @Field(() => Int)
+  @Field()
   @Prop({ required: true })
-  tipoDocumento: string; // Ejemplo: 'DNI', 'pasaporte', etc.
+  tipoDocumento: string; 
 
   @Field()
   @Prop({ required: true })
   numeroDocumento: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Prop()
-  email: string;
-
-  @Field()
-  @Prop()
-  telefono: string;
+  email?: string;
 
   @Field({ nullable: true })
   @Prop()
-  genero: string; // Opcional, por ejemplo: 'masculino', 'femenino', 'otro'
+  telefono?: string;
 
   @Field({ nullable: true })
   @Prop()
-  fechaNacimiento: Date; // Opcional
+  genero?: string; 
+
+  @Field({ nullable: true })
+  @Prop()
+  fechaNacimiento?: Date;
 
   @Field(() => Boolean)
   @Prop({ default: true })

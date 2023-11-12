@@ -2,7 +2,7 @@ import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@ObjectType()
+@ObjectType() 
 @Schema({ 
   timestamps: true,
   collection: 'reserva' 
