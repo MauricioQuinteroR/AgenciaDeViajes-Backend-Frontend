@@ -1,35 +1,42 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { HuespedService } from './huesped.service';
 import { Huesped } from './entities/huesped.entity';
 import { CreateHuespedInput } from './dto/create-huesped.input';
 import { UpdateHuespedInput } from './dto/update-huesped.input';
 
-@Resolver(() => Huesped)
+@Resolver(of => Huesped)
 export class HuespedResolver {
-  constructor(private readonly huespedService: HuespedService) {}
+  constructor(private huespedService: HuespedService) {}
 
-  @Mutation(() => Huesped)
-  createHuesped(@Args('createHuespedInput') createHuespedInput: CreateHuespedInput) {
-    return this.huespedService.create(createHuespedInput);
-  }
-
-  @Query(() => [Huesped], { name: 'huesped' })
-  findAll() {
+  @Query(returns => [Huesped])
+  async huespedes() {
     return this.huespedService.findAll();
   }
 
-  @Query(() => Huesped, { name: 'huesped' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.huespedService.findOne(id);
+  @Query(returns => Huesped, { nullable: true })
+  async huespedById(@Args('id', { type: () => String }) id: string) {
+    return this.huespedService.findOneById(id);
+  }
+  
+  @Mutation(returns => Huesped)
+  async createHuesped(@Args('createHuespedDto') createHuespedDto: CreateHuespedInput) {
+    return this.huespedService.create(createHuespedDto);
   }
 
-  @Mutation(() => Huesped)
-  updateHuesped(@Args('updateHuespedInput') updateHuespedInput: UpdateHuespedInput) {
-    return this.huespedService.update(updateHuespedInput.id, updateHuespedInput);
+  @Mutation(returns => Huesped)
+  async updateHuesped(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateHuespedDto') updateHuespedDto: UpdateHuespedInput,
+  ) {
+    return this.huespedService.update(id, updateHuespedDto);
   }
 
-  @Mutation(() => Huesped)
-  removeHuesped(@Args('id', { type: () => Int }) id: number) {
-    return this.huespedService.remove(id);
+  @Mutation(returns => Boolean)
+  async deleteHuesped(@Args('id', { type: () => String }) id: string) {
+    const result = await this.huespedService.remove(id);
+    if (!result.deleted) {
+      throw new Error(result.message || 'Error al eliminar el huésped.');
+    }
+    return result.deleted;
   }
 }

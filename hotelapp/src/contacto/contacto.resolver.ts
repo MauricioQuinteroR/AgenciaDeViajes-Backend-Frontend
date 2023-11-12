@@ -1,35 +1,42 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { ContactoService } from './contacto.service';
 import { Contacto } from './entities/contacto.entity';
 import { CreateContactoInput } from './dto/create-contacto.input';
 import { UpdateContactoInput } from './dto/update-contacto.input';
 
-@Resolver(() => Contacto)
+@Resolver(of => Contacto)
 export class ContactoResolver {
-  constructor(private readonly contactoService: ContactoService) {}
+  constructor(private contactoService: ContactoService) {}
 
-  @Mutation(() => Contacto)
-  createContacto(@Args('createContactoInput') createContactoInput: CreateContactoInput) {
-    return this.contactoService.create(createContactoInput);
-  }
-
-  @Query(() => [Contacto], { name: 'contacto' })
-  findAll() {
+  @Query(returns => [Contacto])
+  async contactos() {
     return this.contactoService.findAll();
   }
 
-  @Query(() => Contacto, { name: 'contacto' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.contactoService.findOne(id);
+  @Query(returns => Contacto, { nullable: true })
+  async contactoById(@Args('id', { type: () => String }) id: string) {
+    return this.contactoService.findOneById(id);
+  }
+  
+  @Mutation(returns => Contacto)
+  async createContacto(@Args('createContactoDto') createContactoDto: CreateContactoInput) {
+    return this.contactoService.create(createContactoDto);
   }
 
-  @Mutation(() => Contacto)
-  updateContacto(@Args('updateContactoInput') updateContactoInput: UpdateContactoInput) {
-    return this.contactoService.update(updateContactoInput.id, updateContactoInput);
+  @Mutation(returns => Contacto)
+  async updateContacto(
+    @Args('id', { type: () => String }) id: string,
+    @Args('updateContactoDto') updateContactoDto: UpdateContactoInput,
+  ) {
+    return this.contactoService.update(id, updateContactoDto);
   }
 
-  @Mutation(() => Contacto)
-  removeContacto(@Args('id', { type: () => Int }) id: number) {
-    return this.contactoService.remove(id);
+  @Mutation(returns => Boolean)
+  async deleteContacto(@Args('id', { type: () => String }) id: string) {
+    const result = await this.contactoService.remove(id);
+    if (!result.deleted) {
+      throw new Error(result.message || 'Error al eliminar el contacto.');
+    }
+    return result.deleted;
   }
 }

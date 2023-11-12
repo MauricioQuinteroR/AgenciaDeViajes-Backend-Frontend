@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Huesped, HuespedDocument } from './entities/huesped.entity';
 import { CreateHuespedInput } from './dto/create-huesped.input';
 import { UpdateHuespedInput } from './dto/update-huesped.input';
 
+
 @Injectable()
 export class HuespedService {
-  create(createHuespedInput: CreateHuespedInput) {
-    return 'This action adds a new huesped';
+  constructor(@InjectModel(Huesped.name) private huespedModel: Model<HuespedDocument>) {}
+
+  async create(createHuespedDto: CreateHuespedInput): Promise<Huesped> {
+    const newHuesped = new this.huespedModel(createHuespedDto);
+    return newHuesped.save();
   }
 
-  findAll() {
-    return `This action returns all huesped`;
+  async findAll(): Promise<Huesped[]> {
+    return this.huespedModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} huesped`;
+  async findOneById(id: string): Promise<Huesped> {
+    const huesped = await this.huespedModel.findById(id).exec();
+    if (!huesped) {
+      throw new NotFoundException(`Huésped con ID "${id}" no encontrado`);
+    }
+    return huesped;
   }
 
-  update(id: number, updateHuespedInput: UpdateHuespedInput) {
-    return `This action updates a #${id} huesped`;
+  async update(id: string, updateHuespedDto: UpdateHuespedInput): Promise<Huesped> {
+    const updatedHuesped = await this.huespedModel.findByIdAndUpdate(id, updateHuespedDto, { new: true }).exec();
+    if (!updatedHuesped) {
+      throw new NotFoundException(`Huésped con ID "${id}" no encontrado`);
+    }
+    return updatedHuesped;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} huesped`;
+  async remove(id: string): Promise<{ deleted: boolean; message?: string }> {
+    const result = await this.huespedModel.findByIdAndDelete(id);
+    if (!result) {
+      return { deleted: false, message: 'Huésped no encontrado' };
+    }
+    return { deleted: true };
   }
 }

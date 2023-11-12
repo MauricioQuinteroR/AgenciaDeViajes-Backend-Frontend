@@ -1,26 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Reserva, ReservaDocument } from './entities/reserva.entity';
 import { CreateReservaInput } from './dto/create-reserva.input';
 import { UpdateReservaInput } from './dto/update-reserva.input';
 
+
 @Injectable()
 export class ReservaService {
-  create(createReservaInput: CreateReservaInput) {
-    return 'This action adds a new reserva';
+  constructor(@InjectModel(Reserva.name) private reservaModel: Model<ReservaDocument>) {}
+
+  async create(createReservaDto: CreateReservaInput): Promise<Reserva> {
+    const newReserva = new this.reservaModel(createReservaDto);
+    return newReserva.save();
   }
 
-  findAll() {
-    return `This action returns all reserva`;
+  async findAll(): Promise<Reserva[]> {
+    return this.reservaModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reserva`;
+  async findOneById(id: string): Promise<Reserva> {
+    const reserva = await this.reservaModel.findById(id).exec();
+    if (!reserva) {
+      throw new NotFoundException(`Reserva con ID "${id}" no encontrada`);
+    }
+    return reserva;
   }
 
-  update(id: number, updateReservaInput: UpdateReservaInput) {
-    return `This action updates a #${id} reserva`;
+  async update(id: string, updateReservaDto: UpdateReservaInput): Promise<Reserva> {
+    const updatedReserva = await this.reservaModel.findByIdAndUpdate(id, updateReservaDto, { new: true }).exec();
+    if (!updatedReserva) {
+      throw new NotFoundException(`Reserva con ID "${id}" no encontrada`);
+    }
+    return updatedReserva;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reserva`;
+  async remove(id: string): Promise<{ deleted: boolean; message?: string }> {
+    const result = await this.reservaModel.findByIdAndDelete(id);
+    if (!result) {
+      return { deleted: false, message: 'Reserva no encontrada' };
+    }
+    return { deleted: true };
   }
 }

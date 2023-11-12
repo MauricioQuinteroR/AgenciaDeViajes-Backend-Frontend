@@ -75,10 +75,14 @@ type Usuario {
 type Query {
   hotels: [Hotel!]!
   hotelById(id: String!): Hotel
-  habitacion(id: Int!): Habitacion!
-  reserva(id: Int!): Reserva!
-  huesped(id: Int!): Huesped!
-  contacto(id: Int!): Contacto!
+  habitaciones: [Habitacion!]!
+  habitacionById(id: String!): Habitacion
+  reservas: [Reserva!]!
+  reservaById(id: String!): Reserva
+  huespedes: [Huesped!]!
+  huespedById(id: String!): Huesped
+  contactos: [Contacto!]!
+  contactoById(id: String!): Contacto
   users: [Usuario!]!
   userById(id: String!): Usuario
   userByEmail(email: String!): Usuario
@@ -89,18 +93,18 @@ type Mutation {
   updateHotel(id: String!, updateHotelDto: UpdateHotelInput!): Hotel!
   deleteHotel(id: String!): Boolean!
   updateHotelActive(id: String!, active: Boolean!): Hotel!
-  createHabitacion(createHabitacionInput: CreateHabitacionInput!): Habitacion!
-  updateHabitacion(updateHabitacionInput: UpdateHabitacionInput!): Habitacion!
-  removeHabitacion(id: Int!): Habitacion!
-  createReserva(createReservaInput: CreateReservaInput!): Reserva!
-  updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
-  removeReserva(id: Int!): Reserva!
-  createHuesped(createHuespedInput: CreateHuespedInput!): Huesped!
-  updateHuesped(updateHuespedInput: UpdateHuespedInput!): Huesped!
-  removeHuesped(id: Int!): Huesped!
-  createContacto(createContactoInput: CreateContactoInput!): Contacto!
-  updateContacto(updateContactoInput: UpdateContactoInput!): Contacto!
-  removeContacto(id: Int!): Contacto!
+  createHabitacion(createHabitacionDto: CreateHabitacionInput!): Habitacion!
+  updateHabitacion(id: String!, updateHabitacionDto: UpdateHabitacionInput!): Habitacion!
+  deleteHabitacion(id: String!): Boolean!
+  createReserva(createReservaDto: CreateReservaInput!): Reserva!
+  updateReserva(id: String!, updateReservaDto: UpdateReservaInput!): Reserva!
+  deleteReserva(id: String!): Boolean!
+  createHuesped(createHuespedDto: CreateHuespedInput!): Huesped!
+  updateHuesped(id: String!, updateHuespedDto: UpdateHuespedInput!): Huesped!
+  deleteHuesped(id: String!): Boolean!
+  createContacto(createContactoDto: CreateContactoInput!): Contacto!
+  updateContacto(id: String!, updateContactoDto: UpdateContactoInput!): Contacto!
+  deleteContacto(id: String!): Boolean!
   registerUser(createUserDto: CreateUserDto!): Usuario!
   loginUser(loginUserDto: LoginUserDto!): String!
   updateEmail(userId: String!, newEmail: String!): Usuario!
