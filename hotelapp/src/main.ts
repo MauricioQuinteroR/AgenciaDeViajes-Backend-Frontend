@@ -1,10 +1,16 @@
+import * as dotenv from 'dotenv';
+dotenv.config(); //carga de variables de entorno
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
 
 async function bootstrap() {
-  dotenv.config();  // Carga las variables de entorno antes de iniciar la aplicación
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  try {
+    const app = await NestFactory.create(AppModule);
+    await app.listen(3000);
+    console.log(`Application is running on: ${await app.getUrl()}`);
+  } catch (error) {
+    console.error('Error during application startup', error);
+  }
 }
 bootstrap();

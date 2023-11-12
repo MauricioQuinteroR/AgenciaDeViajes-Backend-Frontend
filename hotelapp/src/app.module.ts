@@ -17,7 +17,7 @@ import { UsuarioModule } from './usuario/usuario.module';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
     }),
-    MongooseModule.forRoot('mongodb+srv://alzheimeer:Qazwsxx2@clusterhotel.qytz5nr.mongodb.net/?retryWrites=true&w=majority'),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     HotelModule,
     HabitacionModule, 
     ReservaModule, 
