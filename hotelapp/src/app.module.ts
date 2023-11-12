@@ -9,6 +9,7 @@ import { ContactoModule } from './contacto/contacto.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     HabitacionModule, 
     ReservaModule, 
     HuespedModule, 
-    ContactoModule
+    ContactoModule, UsuarioModule
   ],
   controllers: [AppController],
   providers: [AppService],

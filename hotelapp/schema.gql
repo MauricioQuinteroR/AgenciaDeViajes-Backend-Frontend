@@ -3,28 +3,55 @@
 # ------------------------------------------------------
 
 type Hotel {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  nombre: String!
+  ubicacion: String
+  descripcion: String
 }
 
 type Habitacion {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  tipo: String!
+  costoBase: Int!
+  impuestos: Int!
+  estado: String!
 }
 
 type Reserva {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  fechaEntrada: DateTime!
+  fechaSalida: DateTime!
+  cantidadPersonas: Int!
+  habitacionId: String!
+  huespedId: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Huesped {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  nombres: String!
+  apellidos: String!
+  tipoDocumento: Int!
+  numeroDocumento: String!
+  email: String!
+  telefono: String!
+  genero: String
+  fechaNacimiento: DateTime
 }
 
 type Contacto {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  nombreCompleto: String!
+  telefonoContacto: String!
+}
+
+type Usuario {
+  id: Int!
+  email: String!
 }
 
 type Query {
@@ -33,6 +60,7 @@ type Query {
   reserva(id: Int!): Reserva!
   huesped(id: Int!): Huesped!
   contacto(id: Int!): Contacto!
+  usuario(id: Int!): Usuario!
 }
 
 type Mutation {
@@ -51,6 +79,9 @@ type Mutation {
   createContacto(createContactoInput: CreateContactoInput!): Contacto!
   updateContacto(updateContactoInput: UpdateContactoInput!): Contacto!
   removeContacto(id: Int!): Contacto!
+  createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
+  updateUsuario(updateUsuarioInput: UpdateUsuarioInput!): Usuario!
+  removeUsuario(id: Int!): Usuario!
 }
 
 input CreateHotelInput {
@@ -103,6 +134,17 @@ input CreateContactoInput {
 }
 
 input UpdateContactoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUsuarioInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUsuarioInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
