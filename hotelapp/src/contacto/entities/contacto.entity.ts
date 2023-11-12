@@ -19,6 +19,10 @@ export class Contacto {
   @Prop({ required: true })
   telefonoContacto: string;
 
+  @Field()
+  @Prop({ required: true })
+  email: string;
+
   @Field(() => Boolean)
   @Prop({ default: true })
   active: boolean;

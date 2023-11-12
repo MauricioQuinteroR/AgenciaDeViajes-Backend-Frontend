@@ -11,5 +11,4 @@ export class CreateHotelInput {
   @Field({ nullable: true })
   descripcion?: string;
 
-  // Agrega aquí otros campos necesarios para un hotel
 }

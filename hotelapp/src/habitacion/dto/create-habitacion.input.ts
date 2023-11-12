@@ -1,7 +1,23 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field, Float } from '@nestjs/graphql';
 
 @InputType()
 export class CreateHabitacionInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  numero: string;
+
+  @Field()
+  tipo: string;
+
+  @Field({ nullable: true })
+  descripcion?: string;
+
+  @Field(() => Float)
+  precioBase: number;
+
+  @Field(() => Float, { nullable: true })
+  impuesto?: number;
+
+  @Field()
+  hotelId: string;
+
 }

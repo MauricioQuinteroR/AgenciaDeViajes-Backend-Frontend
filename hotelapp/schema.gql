@@ -59,6 +59,7 @@ type Contacto {
   id: ID!
   nombreCompleto: String!
   telefonoContacto: String!
+  email: String!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -123,51 +124,73 @@ input UpdateHotelInput {
   nombre: String
   ubicacion: String
   descripcion: String
-  id: Int!
+  active: String
 }
 
 input CreateHabitacionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  numero: String!
+  tipo: String!
+  descripcion: String
+  precioBase: Float!
+  impuesto: Float
+  hotelId: String!
 }
 
 input UpdateHabitacionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  numero: String
+  tipo: String
+  descripcion: String
+  precioBase: Float
+  impuesto: Float
+  hotelId: String
 }
 
 input CreateReservaInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  hotelId: String!
+  habitacionId: String!
+  huespedId: String!
+  fechaInicio: DateTime!
+  fechaFin: DateTime!
+  numeroPersonas: Int!
+  comentarios: String
 }
 
 input UpdateReservaInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  hotelId: String
+  habitacionId: String
+  huespedId: String
+  fechaInicio: DateTime
+  fechaFin: DateTime
+  numeroPersonas: Int
+  comentarios: String
 }
 
 input CreateHuespedInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  nombre: String!
+  apellido: String!
+  email: String
+  telefono: String
+  documentoIdentidad: String!
 }
 
 input UpdateHuespedInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  nombre: String
+  apellido: String
+  email: String
+  telefono: String
+  documentoIdentidad: String
 }
 
 input CreateContactoInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  nombreCompleto: String!
+  telefonoContacto: String
+  email: String
 }
 
 input UpdateContactoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  nombreCompleto: String
+  telefonoContacto: String
+  email: String
 }
 
 input CreateUserDto {

@@ -5,7 +5,7 @@ import { Document } from 'mongoose';
 @ObjectType()
 @Schema({ 
   timestamps: true,
-  collection: 'hesped' 
+  collection: 'huesped' 
 })
 export class Huesped {
   @Field(() => ID)
