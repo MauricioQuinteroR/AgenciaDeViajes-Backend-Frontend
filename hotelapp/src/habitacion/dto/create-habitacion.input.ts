@@ -2,18 +2,21 @@ import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateHabitacionInput {
-  @Field()
+  @Field({ nullable: false })
   tipo: string; // 'simple', 'doble', 'suite'
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: false })
   costoBase: number;
 
   @Field(() => Int, { nullable: true })
   impuestos?: number;
 
-  @Field()
+  @Field({ nullable: false })
   estado: string; // 'disponible', 'ocupada', 'en mantenimiento'
 
-  @Field()
+  @Field({ nullable: false })
   hotelId: string; // ID del hotel al que pertenece la habitación
+
+  @Field({ nullable: false })
+  nombrefoto: string;
 }

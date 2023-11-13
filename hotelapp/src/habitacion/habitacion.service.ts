@@ -26,6 +26,14 @@ export class HabitacionService {
     return habitacion;
   }
 
+  async findByHotelId(hotelId: string): Promise<Habitacion[]> {
+    const habitaciones = await this.habitacionModel.find({ hotelId }).exec();
+    if (habitaciones.length === 0) {
+      throw new NotFoundException(`No se encontraron habitaciones para el hotel con ID "${hotelId}"`);
+    }
+    return habitaciones;
+  }
+  
   async update(id: string, updateHabitacionDto: UpdateHabitacionInput): Promise<Habitacion> {
     const updatedHabitacion = await this.habitacionModel.findByIdAndUpdate(id, updateHabitacionDto, { new: true }).exec();
     if (!updatedHabitacion) {

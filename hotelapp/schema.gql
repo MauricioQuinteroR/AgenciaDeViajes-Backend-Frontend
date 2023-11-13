@@ -5,8 +5,9 @@
 type Hotel {
   id: ID!
   nombre: String!
-  ubicacion: String
-  descripcion: String
+  ubicacion: String!
+  descripcion: String!
+  nombrefoto: String!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -24,6 +25,7 @@ type Habitacion {
   impuestos: Int
   estado: String!
   hotelId: ID!
+  nombrefoto: String!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -79,6 +81,7 @@ type Query {
   hotels: [Hotel!]!
   hotelById(id: String!): Hotel
   habitaciones: [Habitacion!]!
+  habitacionesByHotelId(id: String!): [Habitacion!]
   habitacionById(id: String!): Habitacion
   reservas: [Reserva!]!
   reservaById(id: String!): Reserva
@@ -118,14 +121,16 @@ type Mutation {
 
 input CreateHotelInput {
   nombre: String!
-  ubicacion: String
-  descripcion: String
+  ubicacion: String!
+  descripcion: String!
+  nombrefoto: String!
 }
 
 input UpdateHotelInput {
   nombre: String
   ubicacion: String
   descripcion: String
+  nombrefoto: String
   active: String
 }
 
@@ -135,6 +140,7 @@ input CreateHabitacionInput {
   impuestos: Int
   estado: String!
   hotelId: String!
+  nombrefoto: String!
 }
 
 input UpdateHabitacionInput {
@@ -143,6 +149,7 @@ input UpdateHabitacionInput {
   impuestos: Int
   estado: String
   hotelId: String
+  nombrefoto: String
 }
 
 input CreateReservaInput {

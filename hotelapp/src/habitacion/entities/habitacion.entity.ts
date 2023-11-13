@@ -15,7 +15,7 @@ export class Habitacion {
   @Prop({ required: true })
   tipo: string; // Por ejemplo: 'simple', 'doble', 'suite'
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: false })
   @Prop({ required: true })
   costoBase: number;
 
@@ -23,13 +23,17 @@ export class Habitacion {
   @Prop()
   impuestos?: number;
 
-  @Field()
+  @Field({ nullable: false })
   @Prop({ required: true })
   estado: string; // Por ejemplo: 'disponible', 'ocupada', 'en mantenimiento'
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: false })
   @Prop({ required: true, ref: 'Hotel' })
   hotelId: string; // Referencia al ID del Hotel
+
+  @Field( {nullable: false})
+  @Prop({ required: true })
+  nombrefoto: string;
 
   @Field(() => Boolean)
   @Prop({ default: true })

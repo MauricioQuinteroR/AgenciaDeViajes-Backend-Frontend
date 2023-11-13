@@ -13,6 +13,11 @@ export class HabitacionResolver {
     return this.habitacionService.findAll();
   }
 
+  @Query(returns => [Habitacion], { nullable: true })
+  async habitacionesByHotelId(@Args('id', { type: () => String }) id: string) {
+    return this.habitacionService.findByHotelId(id);
+  }
+
   @Query(returns => Habitacion, { nullable: true })
   async habitacionById(@Args('id', { type: () => String }) id: string) {
     return this.habitacionService.findOneById(id);

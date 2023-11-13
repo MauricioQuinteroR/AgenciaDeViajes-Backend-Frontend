@@ -5,10 +5,13 @@ export class CreateHotelInput {
   @Field()
   nombre: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   ubicacion?: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   descripcion?: string;
+  
+  @Field({ nullable: false })
+  nombrefoto: string;
 
 }

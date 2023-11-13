@@ -15,13 +15,17 @@ export class Hotel {
   @Prop({ required: true })
   nombre: string;
 
-  @Field({ nullable: true })
-  @Prop()
+  @Field({ nullable: false })
+  @Prop({ required: true })
   ubicacion: string;
 
-  @Field({ nullable: true })
-  @Prop()
+  @Field({ nullable: false })
+  @Prop({ required: true })
   descripcion: string;
+  
+  @Field( {nullable: false})
+  @Prop({ required: true })
+  nombrefoto: string;
 
   @Field(() => Boolean)
   @Prop({ default: true })
