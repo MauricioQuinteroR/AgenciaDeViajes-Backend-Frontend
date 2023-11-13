@@ -61,6 +61,7 @@ type Contacto {
   nombreCompleto: String!
   telefonoContacto: String!
   email: String!
+  hotelId: ID!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -186,12 +187,14 @@ input CreateContactoInput {
   nombreCompleto: String!
   telefonoContacto: String
   email: String
+  hotelId: String!
 }
 
 input UpdateContactoInput {
   nombreCompleto: String
   telefonoContacto: String
   email: String
+  hotelId: String
 }
 
 input CreateUserDto {

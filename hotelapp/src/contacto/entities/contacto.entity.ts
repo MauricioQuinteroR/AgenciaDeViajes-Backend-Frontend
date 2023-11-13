@@ -23,6 +23,10 @@ export class Contacto {
   @Prop({ required: true })
   email: string;
 
+  @Field(() => ID)
+  @Prop({ required: true, ref: 'Hotel' })
+  hotelId: string; // Referencia al ID del Hotel
+
   @Field(() => Boolean)
   @Prop({ default: true })
   active: boolean;

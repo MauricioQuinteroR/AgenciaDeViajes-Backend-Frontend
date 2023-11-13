@@ -11,5 +11,7 @@ export class CreateContactoInput {
   @Field({ nullable: true })
   email: string;
 
+  @Field()
+  hotelId: string; // ID del hotel asociado
 
 }
