@@ -27,6 +27,10 @@ export class Habitacion {
   @Prop({ required: true })
   estado: string; // Por ejemplo: 'disponible', 'ocupada', 'en mantenimiento'
 
+  @Field(() => ID)
+  @Prop({ required: true, ref: 'Hotel' })
+  hotelId: string; // Referencia al ID del Hotel
+
   @Field(() => Boolean)
   @Prop({ default: true })
   active: boolean;

@@ -23,6 +23,7 @@ type Habitacion {
   costoBase: Int!
   impuestos: Int
   estado: String!
+  hotelId: ID!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -132,7 +133,7 @@ input CreateHabitacionInput {
   costoBase: Int!
   impuestos: Int
   estado: String!
-  hotelId: String
+  hotelId: String!
 }
 
 input UpdateHabitacionInput {
