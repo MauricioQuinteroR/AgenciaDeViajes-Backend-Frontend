@@ -9,6 +9,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HabitacionesModalComponent } from '../habitaciones-modal/habitaciones-modal.component';
 
@@ -42,7 +43,8 @@ interface HuespedResponse {
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
