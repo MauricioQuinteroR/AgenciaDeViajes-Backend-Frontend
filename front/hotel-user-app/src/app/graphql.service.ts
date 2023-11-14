@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class GraphqlService {
   constructor(private apollo: Apollo) {}
+
+
 
   getHoteles() {
     return this.apollo.watchQuery<any>({

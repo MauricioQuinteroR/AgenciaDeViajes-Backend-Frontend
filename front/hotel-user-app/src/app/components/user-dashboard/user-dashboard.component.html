@@ -1,5 +1,9 @@
 <div class="dashboard-container">
-  <mat-toolbar color="primary">Lista de Hoteles Costa Colombiana</mat-toolbar>
+  <mat-toolbar color="primary">
+    <span>Lista de Hoteles Costa Colombiana</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="warn" routerLink="/admin-login">ADMINISTRADORES</button>
+  </mat-toolbar>
 
   <mat-grid-list cols="3" rowHeight="350px">
     <mat-grid-tile *ngFor="let hotel of hoteles">

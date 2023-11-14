@@ -3,6 +3,13 @@
     text-align: center;
     margin-bottom: 20px;
   }
+  h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #333;
+  }
 
   .habitacion-image {
     width: 60px;
@@ -33,15 +40,39 @@
     justify-content: center;
   }
 
+  .fecha-container {
+    display: flex;
+    justify-content: space-between;
+
+    mat-form-field {
+      flex-grow: 1;
+      margin-right: 10px; /* Ajusta el espacio entre los campos de fecha */
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    gap: 15px; /* Espacio entre los campos */
+    padding: 20px; /* Padding alrededor del formulario */
+    margin-top: 20px; /* Espacio entre la lista y el formulario */
+    background-color: #f4f4f4; /* Fondo claro para el formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+
+    mat-form-field {
+      width: 100%; /* Ancho completo para los campos */
+    }
 
     button {
       width: 100%;
       max-width: 200px;
+      margin-top: 20px; /* Espacio encima del botón */
     }
   }
 }
