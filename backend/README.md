@@ -17,7 +17,7 @@ Para instalar y ejecutar esta API localmente, sigue estos pasos:
 1. Clona el repositorio:
 
 Utiliza el código con precaución. Más información
-git clone https://github.com/[SIS-VIDA-EdgarQuintero]/api-graphql-hoteles.git
+git clone https://github.com/[SIS-VIDA-EdgarQuintero]/api-graphql-hoteles.git  .
 
 
 2. Instala las dependencias:
