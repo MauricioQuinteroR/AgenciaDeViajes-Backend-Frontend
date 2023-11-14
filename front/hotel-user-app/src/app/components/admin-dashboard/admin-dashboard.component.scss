@@ -1,0 +1,40 @@
+.admin-dashboard {
+  height: 100vh;
+
+  .sidenav-container {
+    height: 100%;
+
+    mat-sidenav-content {
+      height: 100%;
+    }
+  }
+
+  .sidenav {
+    width: 200px;
+    background-color: black; // Fondo negro para el sidebar
+
+    mat-nav-list {
+      a {
+        color: white !important; // Letra blanca para los enlaces
+        &:hover {
+          color: grey; // Opcional: color al pasar el mouse por encima
+        }
+      }
+    }
+  }
+
+  mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: black; // Fondo negro para el navbar
+    color: white !important;
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    button {
+      color: white !important; // Letra blanca para los botones
+    }
+  }
+}

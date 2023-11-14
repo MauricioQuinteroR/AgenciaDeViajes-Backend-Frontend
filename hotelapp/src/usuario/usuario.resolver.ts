@@ -28,11 +28,11 @@ export class UsuarioResolver {
     return this.usuarioService.create(createUserDto);
   }
 
-  @Mutation(returns => String) // Retorna un token JWT
+  @Query(returns => String) // Retorna un token JWT
   async loginUser(@Args('loginUserDto') loginUserDto: LoginUserDto) {
     const user = await this.usuarioService.validateUser(loginUserDto);
     if (!user) {
-      throw new Error('Credenciales inválidas');
+      return "Credenciales Erroneas"
     }
     return user.token; // El token JWT
   }

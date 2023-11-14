@@ -1,1 +1,32 @@
-<p>admin-dashboard works!</p>
+<div class="admin-dashboard">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="sidenav" >
+      <mat-nav-list>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-contactos">Contactos</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-hoteles">Hoteles</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-habitaciones">Habitaciones</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-huespedes">Huespedes</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-reservas">Reservas</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/admin-dashboard/control-usuarios">Usuarios</button>
+        <hr>
+        <button mat-stroked-button color="primary" routerLink="/">Vista Usuario</button>
+        <hr>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <span>Panel de Administración</span>
+        <span class="spacer"></span>
+        <button mat-button (click)="cerrarSesion()">Cerrar Sesión</button>
+      </mat-toolbar>
+
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,69 @@
+<div class="control-huespedes-container">
+  <table mat-table [dataSource]="huespedes" class="mat-elevation-z8">
+
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="nombres">
+      <th mat-header-cell *matHeaderCellDef> nombres </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.nombres}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef> apellidos </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.apellidos}}</td>
+    </ng-container>
+    <ng-container matColumnDef="tipoDocumento">
+      <th mat-header-cell *matHeaderCellDef> tipoDocumento </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.tipoDocumento}}</td>
+    </ng-container>
+    <ng-container matColumnDef="numeroDocumento">
+      <th mat-header-cell *matHeaderCellDef> numeroDocumento </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.numeroDocumento}}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> email </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.email}}</td>
+    </ng-container>
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef> telefono </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.telefono}}</td>
+    </ng-container>
+    <ng-container matColumnDef="genero">
+      <th mat-header-cell *matHeaderCellDef> genero </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.genero}}</td>
+    </ng-container>
+    <ng-container matColumnDef="fechaNacimiento">
+      <th mat-header-cell *matHeaderCellDef> fechaNacimiento </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.fechaNacimiento}}</td>
+    </ng-container>
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.active}}</td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef> Creado </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.createdAt}}</td>
+    </ng-container>
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef> Ult Actualizacion </th>
+      <td mat-cell *matCellDef="let huesped">{{huesped.updatedAt}}</td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let huesped">
+        <button mat-button (click)="actualizarHuesped(huesped)">Editar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id','nombres', 'apellidos','tipoDocumento' ,'numeroDocumento','email','telefono','genero','fechaNacimiento','active','createdAt','updatedAt','acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','nombres', 'apellidos','tipoDocumento' ,'numeroDocumento','email','telefono','genero','fechaNacimiento', 'active','createdAt','updatedAt','acciones'];"></tr>
+  </table>
+
+  <!-- <button mat-raised-button color="primary" class="crear-huesped"(click)="crearHuesped()">Crear Huesped</button> -->
+</div>

@@ -1,1 +1,27 @@
-<p>register works!</p>
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" ngModel name="email" placeholder="Email" required email>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" ngModel name="password" placeholder="Contraseña" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Registrarse</button>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="navigateToLogin()">Iniciar Sesión</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

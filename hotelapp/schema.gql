@@ -91,6 +91,12 @@ type Query {
   users: [Usuario!]!
   userById(id: String!): Usuario
   userByEmail(email: String!): Usuario
+  loginUser(loginUserDto: LoginUserDto!): String!
+}
+
+input LoginUserDto {
+  email: String!
+  password: String!
 }
 
 type Mutation {
@@ -111,7 +117,6 @@ type Mutation {
   updateContacto(id: String!, updateContactoDto: UpdateContactoInput!): Contacto!
   deleteContacto(id: String!): Boolean!
   registerUser(createUserDto: CreateUserDto!): Usuario!
-  loginUser(loginUserDto: LoginUserDto!): String!
   updateEmail(userId: String!, newEmail: String!): Usuario!
   updatePassword(userId: String!, newPassword: String!): Usuario!
   deleteUser(id: String!): Boolean!
@@ -202,11 +207,6 @@ input UpdateContactoInput {
 }
 
 input CreateUserDto {
-  email: String!
-  password: String!
-}
-
-input LoginUserDto {
   email: String!
   password: String!
 }
