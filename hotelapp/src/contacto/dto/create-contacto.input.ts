@@ -2,16 +2,13 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateContactoInput {
-  @Field()
+  @Field({ nullable: false })
   nombreCompleto: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   telefonoContacto: string;
 
-  @Field({ nullable: true })
-  email: string;
-
-  @Field()
-  hotelId: string; // ID del hotel asociado
+  @Field({ nullable: false })
+  reservaId: string; // ID de la reserva asociada
 
 }

@@ -13,24 +13,6 @@ import { RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HabitacionesModalComponent } from '../habitaciones-modal/habitaciones-modal.component';
 
-
-interface HuespedResponse {
-  data: {
-    createHuesped: {
-      id: string;
-      nombres: string;
-      apellidos: string;
-      tipoDocumento: string;
-      numeroDocumento: string;
-      email: string;
-      telefono: string;
-      genero: string;
-      fechaNacimiento: string;
-    };
-  };
-}
-
-
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
@@ -78,7 +60,7 @@ export class UserDashboardComponent implements OnInit {
 
   abrirHabitacionesModal(hotelId: string, nombreHotel: string): void {
     const dialogRef = this.dialog.open(HabitacionesModalComponent, {
-      width: '600px',
+      width: '1000px',
       data: { hotelId: hotelId, nombreHotel: nombreHotel }
     });
 
@@ -89,14 +71,11 @@ export class UserDashboardComponent implements OnInit {
     });
   }
 
-  irALogin(){
-    // this.router.navigate(['/login']);
-  }
+
 
   crearReserva(datosReserva: any): void {
     this.graphqlService.createHuesped(datosReserva.datosHuesped).subscribe({
       next: (responseHuesped: any) => {
-
         if (responseHuesped.data && responseHuesped.data.createHuesped && responseHuesped.data.createHuesped.id) {
           this.graphqlService.createReserva({
             habitacionId: datosReserva.habitacionId,
@@ -105,11 +84,30 @@ export class UserDashboardComponent implements OnInit {
             fechaSalida: datosReserva.fechaSalida,
             cantidadPersonas: datosReserva.cantidadPersonas
           }).subscribe({
-            next: (responseReserva) => {
-              Swal.fire('¡Reserva Exitosa!', 'Tu reserva ha sido creada con éxito.', 'success');
+            next: (responseReserva:any) => {
+              if (responseReserva.data && responseReserva.data.createReserva && responseReserva.data.createReserva.id) {
+                // Aquí asumimos que la reserva se ha creado con éxito y procedemos a crear el contacto de emergencia
+                this.graphqlService.createContacto({
+                  nombreCompleto: datosReserva.nombreCompletoContacto,
+                  telefonoContacto: datosReserva.telefonoContacto,
+                  reservaId: responseReserva.data.createReserva.id
+                }).subscribe({
+                  next: (responseContacto) => {
+                    console.log('Contacto de emergencia creado', responseContacto);
+                    Swal.fire(`¡Reserva Creada!', 'Su reserva es la # ${responseReserva.data.createReserva.id} y sera enviada a su email.`);
+                  },
+                  error: (errorContacto) => {
+                    console.error('Error al crear el contacto de emergencia:', errorContacto);
+                    Swal.fire('Error', 'Contacto de Emergencia No Creado. Intente Más Tarde.', 'error');
+                  }
+                });
+              } else {
+                console.error('No se pudo obtener el ID de la reserva');
+                Swal.fire('Error', 'No se pudo obtener el ID de la reserva. Intente Más Tarde.', 'error');
+              }
             },
-            error: (error) => {
-              console.error('Error al crear la reserva:', error);
+            error: (errorReserva) => {
+              console.error('Error al crear la reserva:', errorReserva);
               Swal.fire('Error', 'Reserva No Exitosa. Intente Más Tarde.', 'error');
             }
           });
@@ -118,14 +116,12 @@ export class UserDashboardComponent implements OnInit {
           Swal.fire('Error', 'No se pudo crear el huésped. Intente Más Tarde.', 'error');
         }
       },
-      error: (error) => {
-        console.error('Error al crear el huésped:', error);
+      error: (errorHuesped) => {
+        console.error('Error al crear el huésped:', errorHuesped);
         Swal.fire('Error', 'No se pudo crear el huésped. Intente Más Tarde.', 'error');
       }
     });
   }
-
-
 
 
 }

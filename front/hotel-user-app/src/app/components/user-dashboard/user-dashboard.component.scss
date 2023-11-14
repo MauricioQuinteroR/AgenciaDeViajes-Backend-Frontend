@@ -1,8 +1,33 @@
+.h11{
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  color: #000000;
+
+  margin: 20px;
+  height: 5vh;
+  font-family:fantasy;
+  background-color: cadetblue;
+}
+
+h1{
+  padding: 10px;
+  color: rgb(2, 5, 82);
+  font-size: 50px;
+  font-weight: 800;
+}
+
+
+
 .dashboard-container {
   margin: 20px;
 
   .hotel-image {
     background-size: cover;
+  }
+
+  .btn3{
+    background-color: rgb(222, 222, 222);
   }
 
   mat-card {

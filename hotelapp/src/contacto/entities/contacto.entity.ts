@@ -19,13 +19,11 @@ export class Contacto {
   @Prop({ required: true })
   telefonoContacto: string;
 
-  @Field()
-  @Prop({ required: true })
-  email: string;
+
 
   @Field(() => ID)
-  @Prop({ required: true, ref: 'Hotel' })
-  hotelId: string; // Referencia al ID del Hotel
+  @Prop({ required: true, ref: 'Reserva' })
+  reservaId: string; // Referencia al ID de una reserva como contacto de emergencia
 
   @Field(() => Boolean)
   @Prop({ default: true })

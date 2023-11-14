@@ -83,7 +83,9 @@ export class HabitacionesModalComponent implements OnInit {
       },
       fechaEntrada: reservaFormValue.fechaEntrada,
       fechaSalida: reservaFormValue.fechaSalida,
-      cantidadPersonas: parseInt(reservaFormValue.cantidadPersonas, 10)
+      cantidadPersonas: parseInt(reservaFormValue.cantidadPersonas, 10),
+      nombreCompletoContacto: reservaFormValue.nombreCompletoContacto,
+      telefonoContacto: reservaFormValue.telefonoContacto
     };
 
     // Cerrar el modal y pasar los datos de la reserva

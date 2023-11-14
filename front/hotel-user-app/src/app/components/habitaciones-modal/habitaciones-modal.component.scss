@@ -11,6 +11,13 @@
     color: #333;
   }
 
+  .columna {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+  }
+
   .habitacion-image {
     width: 60px;
     height: 60px;
@@ -64,6 +71,7 @@
     background-color: #f4f4f4; /* Fondo claro para el formulario */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    justify-content: space-between;
 
     mat-form-field {
       width: 100%; /* Ancho completo para los campos */

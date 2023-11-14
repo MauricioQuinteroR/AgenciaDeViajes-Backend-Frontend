@@ -1,3 +1,5 @@
+
+
 <div class="habitaciones-modal-container">
   <div *ngIf="!habitacionSeleccionada">
     <h2>Habitaciones del Hotel {{ nombreHotel }}</h2>
@@ -24,37 +26,70 @@
   <div *ngIf="mostrarFormulario">
     <h3>Reserva para la Habitación {{ habitacionSeleccionada }}</h3>
     <form #reservaForm="ngForm" (ngSubmit)="realizarReserva(reservaForm.value)">
-      <!-- Nombre -->
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput ngModel name="nombres" placeholder="Tu nombre" required>
-      </mat-form-field>
-
-      <!-- Apellidos -->
-      <mat-form-field appearance="fill">
-        <mat-label>Apellidos</mat-label>
-        <input matInput ngModel name="apellidos" placeholder="Tus apellidos" required>
-      </mat-form-field>
-
-       <!-- Apellidos -->
+      <div class="fecha-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput ngModel name="nombres" placeholder="Tu nombre" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellidos</mat-label>
+          <input matInput ngModel name="apellidos" placeholder="Tus apellidos" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>email</mat-label>
+          <input matInput ngModel name="email" placeholder="email" required>
+        </mat-form-field>
+    </div>
+    <div class="fecha-container">
        <mat-form-field appearance="fill">
         <mat-label>Tipo De Documento</mat-label>
         <input matInput ngModel name="tipoDocumento" placeholder="tipo Documento" required>
       </mat-form-field>
 
-       <!-- Apellidos -->
+
        <mat-form-field appearance="fill">
         <mat-label>Numero De Documento</mat-label>
         <input matInput ngModel name="numeroDocumento" placeholder="N. Documento" required>
       </mat-form-field>
 
-       <!-- cantidadPersonas -->
+       <!-- Fecha de Nacimiento -->
        <mat-form-field appearance="fill">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker3" ngModel name="fechaNacimiento" placeholder="Fecha de Nacimiento" required>
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="fecha-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Telefono</mat-label>
+        <input matInput ngModel name="telefono" placeholder="telefono" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Genero</mat-label>
+        <input matInput ngModel name="genero" placeholder="genero" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-label>Cantidad De Personas</mat-label>
         <input matInput ngModel name="cantidadPersonas" placeholder="cantidad De Personas" required>
       </mat-form-field>
+    </div>
+    <div class="fecha-container">
+        <!-- Nombre Completo del Contacto de Emergencia -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre Contacto Emergencia</mat-label>
+          <input matInput ngModel name="nombreCompletoContacto" placeholder="Nombre Completo" required>
+        </mat-form-field>
 
-      <div class="fecha-container">
+        <!-- Teléfono del Contacto de Emergencia -->
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono Contacto Emergencia</mat-label>
+          <input matInput ngModel name="telefonoContacto" placeholder="Teléfono" required>
+        </mat-form-field>
+    </div>
+
+    <div class="fecha-container">
         <!-- Fecha de Entrada -->
         <mat-form-field appearance="fill">
           <mat-label>Fecha de Entrada</mat-label>
@@ -70,6 +105,8 @@
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
+
+
       </div>
 
       <button mat-raised-button color="primary" type="submit" [disabled]="!reservaForm.valid">Reservar</button>

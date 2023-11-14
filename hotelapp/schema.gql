@@ -62,8 +62,7 @@ type Contacto {
   id: ID!
   nombreCompleto: String!
   telefonoContacto: String!
-  email: String!
-  hotelId: ID!
+  reservaId: ID!
   active: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -192,16 +191,14 @@ input UpdateHuespedInput {
 
 input CreateContactoInput {
   nombreCompleto: String!
-  telefonoContacto: String
-  email: String
-  hotelId: String!
+  telefonoContacto: String!
+  reservaId: String!
 }
 
 input UpdateContactoInput {
   nombreCompleto: String
   telefonoContacto: String
-  email: String
-  hotelId: String
+  reservaId: String
 }
 
 input CreateUserDto {

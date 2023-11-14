@@ -115,9 +115,7 @@ export class GraphqlService {
     }).valueChanges;
 }
 
-  getContacto(hotelId: string) {
-    // Implementa la consulta para obtener el contacto de un hotel
-  }
+
 
 
   getHuespedById(huespedId: string) {
@@ -301,6 +299,31 @@ export class GraphqlService {
     });
   }
 
+
+  createContacto(contactoData: {
+    nombreCompleto: string,
+    telefonoContacto: string,
+    reservaId: string,
+  }) {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation createContacto($contactoData: CreateContactoInput!) {
+          createContacto(createContactoDto: $contactoData) {
+            id
+            nombreCompleto
+            telefonoContacto
+            reservaId
+            active
+            createdAt
+            updatedAt
+          }
+        }
+      `,
+      variables: {
+        contactoData
+      }
+    });
+  }
 
 
 }
