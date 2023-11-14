@@ -9,13 +9,30 @@ Se Divide En Dos: Backend Y FrontEnd
 El Backend Permite realizar operaciones de CRUD para entidades como Usuarios, Hoteles, Habitaciones, Huéspedes, Reservas y Contactos.
 El Frontend Usa Esta API GRAPHQL
 
+## Características principales del FrontEnd
 
+ * Utiliza las tecnologías Angular 16, GraphQL con Apollo consumiendo una API desplegada en AWS en EC2 con dominio en Route53.
+ * Por el momento no se puede usar Angular 17 por la compatibilidad con graphql
+ 
+ <img src="/assets/angularyapollo.png" alt="logo" style="height: 500px; width:100%;"/>
 
 ## Características principales del Backend
 
+
 * Implementa un conjunto completo de operaciones de CRUD para entidades de gestión de hoteles.
-* Utiliza las tecnologías Node.js, MongoDB y GraphQL.
+* Utiliza las tecnologías NestJs, MongoDB y GraphQL.
 * Es fácil de instalar y usar.
+
+ <img src="/assets/nestjsgraphqlmongodb.png" alt="logo" style="height: 500px; width:100%;"/>
+
+# Entidades con su CRUD
+* Contacto De Emergencia
+* Habitacion
+* Hotel
+* Huesped
+* Reserva
+* Usuario Admin
+
 
 ## Instalación y ejecución
 
