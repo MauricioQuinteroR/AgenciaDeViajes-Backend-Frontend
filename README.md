@@ -17,7 +17,7 @@ El Frontend esta construido con Angular 16 y node 18.10.0 Consumiendo con Apollo
 
 # AND
 
-<img src="/assets/jwt.jpg" alt="logo" style="height: 200px; width:100%;"/>
+<img src="/assets/jwt.jpg" alt="logo" style="height: 200px; width:100%;"/>.
 
 ## Instalación y ejecución
 
