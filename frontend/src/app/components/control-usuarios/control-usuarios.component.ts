@@ -61,9 +61,40 @@ export class ControlUsuariosComponent  implements OnInit {
   }
 
   actualizarUsuario(usuario: any): void {
-
+    Swal.fire({
+      title: 'Activar o Inactivar Usuario',
+      html:
+        `<input id="email" class="swal2-input" placeholder="Email" value="${usuario.email}"  readonly>` +
+        `<select id="active" class="custom-select-swal">
+           <option value="true" ${usuario.active === true ? 'selected' : ''}>Activo</option>
+           <option value="false" ${usuario.active === false ? 'selected' : ''}>Inactivo</option>
+         </select>`,
+      showCancelButton: true,
+      confirmButtonText: 'Actualizar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const activeValue = (document.getElementById('active') as HTMLSelectElement).value === 'true';
+        return {
+          id: usuario.id,
+          email: (document.getElementById('email') as HTMLInputElement).value,
+          active: activeValue
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.updateUserActive(result.value.id, result.value.active).subscribe({
+          next: () => {
+            Swal.fire('Usuario Actualizado', '', 'success');
+            this.cargarUsuarios(); // Recargar la lista de usuarios
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire('Error', 'No se pudo actualizar el usuario', 'error');
+          }
+        });
+      }
+    });
   }
-
 
 
 }

@@ -25,6 +25,7 @@ export class HabitacionResolver {
   
   @Mutation(returns => Habitacion)
   async createHabitacion(@Args('createHabitacionDto') createHabitacionDto: CreateHabitacionInput) {
+    console.log('entro a habitacion')
     return this.habitacionService.create(createHabitacionDto);
   }
 

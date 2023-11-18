@@ -77,26 +77,6 @@ export class AuthService {
   }
 
 
-  updateUserActive(id: string, active: boolean) {
-    return this.apollo.mutate({
-      mutation: gql`
-        mutation updateUserActive($id: String!, $active: Boolean!) {
-          updateUserActive(id: $id, active: $active) {
-            id
-            email
-            active
-            createdAt
-            updatedAt
-          }
-        }
-      `,
-      variables: {
-        id,
-        active
-      }
-    });
-  }
-
 
 
   getUsers() {
@@ -157,6 +137,25 @@ export class AuthService {
   }
 
 
+  updateUserActive(id: string, active: boolean) {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation UpdateUserActive($id: String!, $active: Boolean!) {
+          updateUserActive(id: $id, active: $active) {
+            id
+            email
+            active
+            createdAt
+            updatedAt
+          }
+        }
+      `,
+      variables: {
+        id,
+        active
+      }
+    });
+  }
 
   getReservas() {
     return this.apollo.watchQuery<any>({
@@ -341,18 +340,29 @@ export class AuthService {
   }
 
 
-  updateHotel(id: string, hotelData: {
-    nombre?: string,
-    ubicacion?: string
+  updateHotel(hotel: {
+    id: string,
+    nombre: string,
+    ubicacion: string,
+    descripcion: string,
+    nombrefoto: string,
+    active: string
   }) {
     return this.apollo.mutate({
       mutation: gql`
-        mutation updateHotel($id: String!, $updateHotelDto: UpdateHotelInput!) {
-          updateHotel(id: $id, updateHotelDto: $updateHotelDto) {
+        mutation updateHotel($id: String!, $nombre: String!, $ubicacion: String!, $descripcion: String!, $nombrefoto: String!, $active: String!) {
+          updateHotel(id: $id, updateHotelDto: {
+            nombre: $nombre,
+            ubicacion: $ubicacion,
+            descripcion: $descripcion,
+            nombrefoto: $nombrefoto,
+            active: $active
+          }) {
             id
             nombre
             ubicacion
             descripcion
+            nombrefoto
             active
             createdAt
             updatedAt
@@ -360,8 +370,12 @@ export class AuthService {
         }
       `,
       variables: {
-        id,
-        updateHotelDto: hotelData
+        id: hotel.id,
+        nombre: hotel.nombre,
+        ubicacion: hotel.ubicacion,
+        descripcion: hotel.descripcion,
+        nombrefoto: hotel.nombrefoto,
+        active: hotel.active
       }
     });
   }
@@ -373,9 +387,10 @@ export class AuthService {
     hotelId: string,
     nombrefoto: string
   }) {
+    console.log(habitacionData);
     return this.apollo.mutate({
       mutation: gql`
-        mutation createHabitacion($createHabitacionDto: CreateHabitacionInput!) {
+        mutation CreateHabitacion($createHabitacionDto: CreateHabitacionInput!) {
           createHabitacion(createHabitacionDto: $createHabitacionDto) {
             id
             tipo
@@ -397,14 +412,29 @@ export class AuthService {
   }
 
 
-
-  updateHabitacion(id: string, habitacionData: {
-    estado?: string
+  updateHabitacion(habitacionData: {
+    id: string,
+    tipo: string,
+    costoBase: number,
+    impuestos: number,
+    estado: string,
+    active: string
   }) {
+    console.log(habitacionData);
+    if (!habitacionData.estado || !habitacionData.active) {
+      console.error('Error: estado o active no están definidos');
+
+    }
     return this.apollo.mutate({
       mutation: gql`
-        mutation updateHabitacion($id: String!, $updateHabitacionDto: UpdateHabitacionInput!) {
-          updateHabitacion(id: $id, updateHabitacionDto: $updateHabitacionDto) {
+        mutation UpdateHabitacion($id: String!, $tipo: String!, $costoBase: Float!, $impuestos: Float!, $estado: String!, $active: String!) {
+          updateHabitacion(id: $id, updateHabitacionDto: {
+            tipo: $tipo,
+            costoBase: $costoBase,
+            impuestos: $impuestos,
+            estado: $estado,
+            active: $active
+          }) {
             id
             tipo
             costoBase
@@ -417,8 +447,12 @@ export class AuthService {
         }
       `,
       variables: {
-        id,
-        updateHabitacionDto: habitacionData
+        id: habitacionData.id,
+        tipo: habitacionData.tipo,
+        costoBase: habitacionData.costoBase,
+        impuestos: habitacionData.impuestos,
+        estado: habitacionData.estado,
+        active: habitacionData.active
       }
     });
   }

@@ -1,6 +1,24 @@
 <div class="control-habitaciones-container">
-  <table mat-table [dataSource]="habitaciones" class="mat-elevation-z8">
+  <mat-form-field>
+    <mat-label>Buscar por Estado Actual:</mat-label>
+    <mat-select [(ngModel)]="estadoFilter" (ngModelChange)="filterHabitaciones()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option value="disponible">Disponible</mat-option>
+      <mat-option value="ocupada">Ocupada</mat-option>
+    </mat-select>
+  </mat-form-field>
 
+  <mat-form-field  class="caja2">
+    <mat-label>Buscar habitación por hotel:</mat-label>
+    <mat-select [(ngModel)]="hotelIdFilter" (ngModelChange)="filterHabitaciones()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option *ngFor="let hotel of hoteles" [value]="hotel.id">{{hotel.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <caption><h1>Lista de Habitaciones</h1></caption>
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>

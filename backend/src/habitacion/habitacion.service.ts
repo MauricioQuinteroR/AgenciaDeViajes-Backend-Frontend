@@ -10,6 +10,7 @@ export class HabitacionService {
   constructor(@InjectModel(Habitacion.name) private habitacionModel: Model<HabitacionDocument>) {}
 
   async create(createHabitacionDto: CreateHabitacionInput): Promise<Habitacion> {
+    console.log(createHabitacionDto);
     const newHabitacion = new this.habitacionModel(createHabitacionDto);
     return newHabitacion.save();
   }

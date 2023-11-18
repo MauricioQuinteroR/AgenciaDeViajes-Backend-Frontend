@@ -15,8 +15,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsModule } from '@angular/forms';
-import {MatTableModule} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-control-reservas',
@@ -35,6 +36,8 @@ import Swal from 'sweetalert2';
     MatFormFieldModule,
     RouterModule,
     MatSidenavModule,
+    MatSelectModule,
+    MatInputModule,
     MatTableModule,
     FormsModule
   ],
@@ -43,21 +46,50 @@ import Swal from 'sweetalert2';
 })
 export class ControlReservasComponent implements OnInit {
   reservas: any[] = [];
+  habitaciones: any[] = [];
+  huespedes: any[] = [];
+  dataSource = new MatTableDataSource<any>();
+  cantidadPersonasFilter: number | null = null;
+  habitacionIdFilter: string = '';
+  huespedIdFilter: string = '';
+
 
   constructor(private authService: AuthService, private graphqlService: GraphqlService) {}
 
   ngOnInit(): void {
     this.cargarReservas();
+
+    this.cargarHuespedes();
   }
+
+  cargarHuespedes(): void {
+    this.authService.getHuespedes().subscribe({
+      next: (response) => {
+        this.huespedes = response.data.huespedes;
+      },
+      error: (error) => console.error(error)
+    });
+  }
+
 
   cargarReservas(): void {
     this.authService.getReservas().subscribe({
       next: (response) => {
         this.reservas = response.data.reservas;
+        this.filterReservas();
       },
       error: (error) => console.error(error)
     });
   }
+
+  filterReservas(): void {
+    this.dataSource.data = this.reservas.filter((reserva: any) => {
+      return (this.cantidadPersonasFilter == null || reserva.cantidadPersonas === this.cantidadPersonasFilter) &&
+
+             (this.huespedIdFilter === '' || reserva.huespedId === this.huespedIdFilter);
+    });
+  }
+
 
   actualizarReserva(reserva: any): void {
 

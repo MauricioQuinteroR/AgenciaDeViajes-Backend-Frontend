@@ -149,11 +149,12 @@ input CreateHabitacionInput {
 
 input UpdateHabitacionInput {
   tipo: String
-  costoBase: Int
-  impuestos: Int
+  costoBase: Float
+  impuestos: Float
   estado: String
   hotelId: String
   nombrefoto: String
+  active: String
 }
 
 input CreateReservaInput {

@@ -1,9 +1,45 @@
 .control-habitaciones-container {
 
+  .swal2-input, .swal2-select {
+    width: 100%; /* Asegura que tenga el ancho completo */
+    padding: 10px; /* Agrega un poco de espacio interno para hacerlo más grande */
+    margin-top: 10px; /* Espacio entre elementos */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+    border: 1px solid #d9d9d9; /* Un borde suave, si es necesario */
+    border-radius: 4px; /* Bordes redondeados para coincidir con tus inputs */
+    font-size: 16px; /* Tamaño de fuente similar a tus inputs */
+  }
 
   button.crear-habitacion {
     display: block;
     margin: 20px auto;
-
   }
+
+  .custom-select-swal {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+}
+
+
+.custom-select-swal {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+
+
+.caja2{
+  margin-left: 30px;
 }

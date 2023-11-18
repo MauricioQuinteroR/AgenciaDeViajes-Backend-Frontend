@@ -1,6 +1,25 @@
 <div class="control-reservas-container">
-  <table mat-table [dataSource]="reservas" class="mat-elevation-z8">
+  <!-- Filtro por cantidadPersonas -->
+  <mat-form-field>
+    <mat-label>Busca por #Personas:</mat-label>
+    <input matInput type="number" [(ngModel)]="cantidadPersonasFilter" (ngModelChange)="filterReservas()" placeholder="Cantidad de Personas">
+  </mat-form-field>
 
+
+
+  <!-- Filtro por huespedId -->
+  <mat-form-field class="caja2">
+    <mat-label>Buscar por Huésped ID:</mat-label>
+    <mat-select [(ngModel)]="huespedIdFilter" (ngModelChange)="filterReservas()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option *ngFor="let huesped of huespedes" [value]="huesped.id">{{huesped.nombres}} {{huesped.apellidos}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <caption><h1>Lista de Reservas</h1></caption>
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -49,8 +68,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id','fechaEntrada', 'fechaSalida','cantidadPersonas' ,'habitacionId','huespedId','active','createdAt','updatedAt','acciones']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id','fechaEntrada', 'fechaSalida','cantidadPersonas' ,'habitacionId', 'huespedId','active','createdAt','updatedAt','acciones'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id','fechaEntrada', 'fechaSalida','cantidadPersonas' ,'habitacionId','huespedId','active','createdAt','updatedAt']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','fechaEntrada', 'fechaSalida','cantidadPersonas' ,'habitacionId', 'huespedId','active','createdAt','updatedAt'];"></tr>
   </table>
 
   <!-- <button mat-raised-button color="primary" class="crear-reserva"(click)="crearReserva()">Crear Reserva</button> -->
